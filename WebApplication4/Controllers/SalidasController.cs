@@ -15,9 +15,23 @@ namespace WebApplication4.Controllers
         private EmpleadosContext db = new EmpleadosContext();
 
         // GET: Salidas
-        public ActionResult Index()
+        public ActionResult Index(string FechaSalida)
         {
-            return View(db.Salida.ToList());
+            var proveider = from s in db.Salida select s;
+            if (!String.IsNullOrEmpty(FechaSalida))
+            {
+                try
+                {
+                    var fehca = Convert.ToDateTime(FechaSalida);
+                    proveider = proveider.Where(JavaScript => JavaScript.FechaSalida == fehca);
+                    return View(proveider);
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+                return View(db.Salida.ToList());
         }
 
         // GET: Salidas/Details/5

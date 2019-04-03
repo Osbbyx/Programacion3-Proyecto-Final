@@ -15,8 +15,19 @@ namespace WebApplication4.Controllers
         private EmpleadosContext db = new EmpleadosContext();
 
         // GET: Nominas
-        public ActionResult Index()
+        public ActionResult Index(string año, string mes)
         {
+            var proveider = from s in db.Nomina select s;
+            if (!String.IsNullOrEmpty(año))
+            {
+                proveider = proveider.Where(JavaScript => JavaScript.año.Contains(año));
+                return View(proveider);
+            }
+            else if (!String.IsNullOrEmpty(mes))
+            {
+                proveider = proveider.Where(JavaScript => JavaScript.mes.ToString().Contains(mes));
+                return View(proveider);
+            }
             return View(db.Nomina.ToList());
         }
 
@@ -123,5 +134,16 @@ namespace WebApplication4.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult Totalizar()
+        {
+            ViewBag.TotalSalario = db.Nomina.Sum(a => a.MontoTotal);
+            ViewBag.TotalEmpleados = db.Nomina.Count();
+            
+            db.SaveChanges();
+            return View();
+        }
+
+        
     }
 }

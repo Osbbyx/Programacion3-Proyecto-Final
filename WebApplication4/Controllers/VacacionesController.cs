@@ -15,8 +15,34 @@ namespace WebApplication4.Controllers
         private EmpleadosContext db = new EmpleadosContext();
 
         // GET: Vacaciones
-        public ActionResult Index()
+        public ActionResult Index(string Desde, string Hasta)
         {
+            var proveider = from s in db.Vacacione select s;
+            if (!String.IsNullOrEmpty(Desde))
+            {
+                try
+                {
+                    var fehca = Convert.ToDateTime(Desde);
+                    proveider = proveider.Where(JavaScript => JavaScript.Desde == fehca);
+                    return View(proveider);
+                }
+                catch (Exception e)
+                {
+
+                }
+            }else if (!String.IsNullOrEmpty(Hasta))
+            {
+                try
+                {
+                    var fehca = Convert.ToDateTime(Hasta);
+                    proveider = proveider.Where(JavaScript => JavaScript.Hasta == fehca);
+                    return View(proveider);
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
             return View(db.Vacacione.ToList());
         }
 

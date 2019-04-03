@@ -15,8 +15,39 @@ namespace WebApplication4.Controllers
         private EmpleadosContext db = new EmpleadosContext();
 
         // GET: Permisos
-        public ActionResult Index()
+        public ActionResult Index(string Desde, string Hasta, string Empleado)
         {
+            var proveider = from s in db.Permiso select s;
+            if (!String.IsNullOrEmpty(Desde))
+            {
+                try
+                {
+                    var fehca = Convert.ToDateTime(Desde);
+                    proveider = proveider.Where(JavaScript => JavaScript.Desde == fehca);
+                    return View(proveider);
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+            else if (!String.IsNullOrEmpty(Hasta))
+            {
+                try
+                {
+                    var fehca = Convert.ToDateTime(Hasta);
+                    proveider = proveider.Where(JavaScript => JavaScript.Hasta == fehca);
+                    return View(proveider);
+                }
+                catch (Exception e)
+                {
+
+                }
+            }else if (!String.IsNullOrEmpty(Empleado))
+            {
+                proveider = proveider.Where(JavaScript => JavaScript.Empleado.Contains(Empleado));
+                return View(proveider);
+            }
             return View(db.Permiso.ToList());
         }
 

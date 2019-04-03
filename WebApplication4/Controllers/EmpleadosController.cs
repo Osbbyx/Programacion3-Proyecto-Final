@@ -16,21 +16,29 @@ namespace WebApplication4.Controllers
         private EmpleadosContext db = new EmpleadosContext();
 
         // GET: Empleados
-        public ActionResult Index(string Nombre, string Apellido)
+        public ActionResult Index(string Nombre, string Departamento, string Estatus)
         {
             var proveider = from s in db.Empleado select s;
 
-            if (!String.IsNullOrEmpty(Nombre))
+            if (!String.IsNullOrEmpty(Nombre) && !String.IsNullOrEmpty(Estatus))
             {
-                proveider = proveider.Where(JavaScript => JavaScript.Nombre.Contains(Nombre));
+                proveider = proveider.Where(JavaScript => JavaScript.Nombre.Contains(Nombre) && JavaScript.Estatus.ToString().Contains(Estatus));
                 return View(proveider);
             }
-            else if (!String.IsNullOrEmpty(Apellido))
+            else if (!String.IsNullOrEmpty(Departamento) && !String.IsNullOrEmpty(Estatus))
 
             {
-                proveider = proveider.Where(JavaScript => JavaScript.Apellido.Contains(Apellido));
+                proveider = proveider.Where(JavaScript => JavaScript.Departamento.Contains(Departamento) && JavaScript.Estatus.ToString().Contains(Estatus));
+                
                 return View(proveider);
             }
+            else
+            {
+                
+                proveider = proveider.Where(JavaScript => JavaScript.Estatus.ToString().Contains(Estatus));
+                return View(proveider);
+            }
+            
 
             return View(db.Empleado.ToList());
         }

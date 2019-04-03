@@ -28,7 +28,7 @@ namespace WebApplication4.Models
         public ESTADO Estatus { get; set; }
         public enum ESTADO
         {
-            Activo, Inactivo
+            Activos, Inactivo
         }
     }
 }
