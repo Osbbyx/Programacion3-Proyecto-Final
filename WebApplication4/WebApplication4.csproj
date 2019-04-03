@@ -120,6 +120,7 @@
     <Compile Include="Controllers\CargosController.cs" />
     <Compile Include="Controllers\DepartamentosController.cs" />
     <Compile Include="Controllers\EmpleadosController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LicenciasController.cs" />
     <Compile Include="Controllers\NominasController.cs" />
     <Compile Include="Controllers\PermisosController.cs" />
@@ -186,6 +187,7 @@
     <Content Include="Views\Licencias\Details.cshtml" />
     <Content Include="Views\Licencias\Edit.cshtml" />
     <Content Include="Views\Licencias\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
