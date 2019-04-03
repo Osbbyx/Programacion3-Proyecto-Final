@@ -40,7 +40,7 @@ namespace WebApplication4.Controllers
             }
             
 
-            return View(db.Empleado.ToList());
+            
         }
 
         // GET: Empleados/Details/5
