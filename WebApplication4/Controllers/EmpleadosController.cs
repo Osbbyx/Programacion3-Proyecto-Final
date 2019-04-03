@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication4.Models;
 
+
 namespace WebApplication4.Controllers
 {
     public class EmpleadosController : Controller
@@ -15,8 +16,22 @@ namespace WebApplication4.Controllers
         private EmpleadosContext db = new EmpleadosContext();
 
         // GET: Empleados
-        public ActionResult Index()
+        public ActionResult Index(string Nombre, string Apellido)
         {
+            var proveider = from s in db.Empleado select s;
+
+            if (!String.IsNullOrEmpty(Nombre))
+            {
+                proveider = proveider.Where(JavaScript => JavaScript.Nombre.Contains(Nombre));
+                return View(proveider);
+            }
+            else if (!String.IsNullOrEmpty(Apellido))
+
+            {
+                proveider = proveider.Where(JavaScript => JavaScript.Apellido.Contains(Apellido));
+                return View(proveider);
+            }
+
             return View(db.Empleado.ToList());
         }
 
